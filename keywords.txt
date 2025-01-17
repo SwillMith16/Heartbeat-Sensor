@@ -1,0 +1,21 @@
+HeartbeatSensor KEYWORD1
+
+begin 			KEYWORD2
+measureData 	KEYWORD2
+getArrayAvg 	KEYWORD2
+
+
+rawIndex		KEYWORD3
+avgIndex		KEYWORD3
+periodIndex		KEYWORD3
+pulseTime		KEYWORD3
+lastPulseTime	KEYWORD3
+pulsePeriod		KEYWORD3
+pulseDetected	KEYWORD3
+avgValue		KEYWORD3
+avgBaseline		KEYWORD3
+avgPulsePeriod	KEYWORD3
+value			KEYWORD3
+bpm				KEYWORD3
+rawValues		KEYWORD3
+avgValues		KEYWORD3
