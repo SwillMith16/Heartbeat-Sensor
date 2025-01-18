@@ -31,11 +31,19 @@ void HeartbeatSensor::begin(double limit){
 double HeartbeatSensor::getArrayAvg(int array[], int arrayLength){
   int sum = 0;
   double avg = 0.0;
+  int valuesUsed = 0;
 
   for(int i = 0; i < arrayLength; i++){
-    sum = sum + array[i];
-    avg = sum / (arrayLength);
+    if (array[i] != 0){
+      valuesUsed += 1;
+      sum = sum + array[i];
+    }
   }
+
+  if (valuesUsed > 0){
+    avg = sum / valuesUsed;
+  }
+  else avg = 0;
 
   return avg;
 }
@@ -49,11 +57,19 @@ double HeartbeatSensor::getArrayAvg(int array[], int arrayLength){
 double HeartbeatSensor::getArrayAvg(double array[], int arrayLength){
   double sum = 0.0;
   double avg = 0.0;
+  int valuesUsed = 0;
 
   for(int i = 0; i < arrayLength; i++){
-    sum = sum + array[i];
-    avg = sum / (arrayLength);
+    if (array[i] != 0){
+      valuesUsed += 1;
+      sum = sum + array[i];
+    }
   }
+
+  if (valuesUsed > 0){
+    avg = sum / valuesUsed;
+  }
+  else avg = 0;
 
   return avg;
 }
@@ -95,7 +111,39 @@ void HeartbeatSensor::measureData(){
   else if (avgValue < avgBaseline + detectionLimit) pulseDetected = 0;
 
   avgPulsePeriod = getArrayAvg(pulsePeriods, PERIOD_ARRAY_LENGTH);
+  
+}
+
+/********************************
+  Function: getBPM()
+  Description: Calculates BPM using measured data
+  Parameters: none
+  Returns: int bpm
+********************************/
+int HeartbeatSensor::getBPM(){
   // avgPulsePeriod is in milliseconds. Divide by 1k to get seconds
   // 1 over this gives frequency (per second). multiply by 60 for per minute 
   bpm = (1 / (avgPulsePeriod/1000)) * 60;
+
+  return bpm;
+}
+
+/********************************
+  Function: resetValues()
+  Description: Clear stored data from all arrays
+  Parameters: none
+  Returns: none
+********************************/
+void HeartbeatSensor::resetValues(){
+  for (int i = 0; i < RAW_ARRAY_LENGTH; i++){
+    rawValues[i] = 0;
+  }
+
+  for (int i = 0; i < AVG_ARRAY_LENGTH; i++){
+    avgValues[i] = 0;
+  }
+
+  for (int i = 0; i < PERIOD_ARRAY_LENGTH; i++){
+    pulsePeriods[i] = 0;
+  }
 }

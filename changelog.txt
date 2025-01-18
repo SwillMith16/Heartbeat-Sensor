@@ -1,0 +1,7 @@
+v1.1 - 18/1/2025
+
+- HeartrateSensor.h updated to include states_e enum.
+- Plot_Heartrate.ino sketch updated to use states to move through the program.
+- New resetValues() function. Used to wipe all stored values.
+- Calculating BPM moved out of measureData() and into new getBPM() function
+which returns BPM value.
